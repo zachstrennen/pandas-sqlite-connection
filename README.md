@@ -1,1 +1,1 @@
-# pandas-sqlite-connection
+The code in this repository is a template to use when converting a pandas data frame into an SQL database. The data frame used contains information on crypto/NFT scams and rugpulls. The relational model being built is simple. A primary key is generated for each company and that key is then used to link the company names to another table with affiliated information.
