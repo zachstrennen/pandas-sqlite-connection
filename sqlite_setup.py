@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 
 
-def build_db(path:str):
+def build_db(path: str):
     """
     Read in the dataset from a selected directory.
     Adjust dataframe to specific format.
@@ -47,16 +47,16 @@ def build_db(path:str):
     df["Amount Stolen"] = df["Amount Stolen"].replace(',', '', regex=True)
     df["Amount Stolen"] = df["Amount Stolen"].astype(float)
 
-    # Convert dat to only include the year
+    # Convert data to only include the year
     df['Date'] = pd.to_datetime(df['Date'], format='%b, %Y')
     df['Date'] = pd.DatetimeIndex(df['Date']).year
 
     # Separate the columns into their respective dataframes to be pushed to the created sql
     df_company = df[['Company Name']]
-    df_info = df[['Date','Crypto vs NFT','Rug Pull vs Scam','Amount Stolen']]
+    df_info = df[['Date', 'Crypto vs NFT', 'Rug Pull vs Scam', 'Amount Stolen']]
 
     # Push the dataframes to SQL tables
-    df_company.to_sql('company_info',conn,if_exists='replace',index=False)
+    df_company.to_sql('company_info', conn, if_exists='replace', index=False)
     conn.commit()
     df_info.to_sql('scam_info', conn, if_exists='replace', index=False)
     conn.commit()
@@ -70,8 +70,4 @@ def build_db(path:str):
 
 if __name__ == '__main__':
     # Call function to create SQL tables
-    df1, df2 = build_db('/Users/zachstrennen/Downloads/NFT Rug Pulls.csv')
-    print(df1)
-    print(df2)
-
-
+    df1, df2 = build_db('data/NFT Rug Pulls.csv')
